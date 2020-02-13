@@ -5,3 +5,5 @@ java practice in TW
 [2.5.3 修饰符编程题](https://github.com/whisperrrr/TW-Java/tree/2-5-3Modifier) 
 
 [2.6.3 枚举编程题](https://github.com/whisperrrr/TW-Java/tree/2-6-3Enum)  
+
+[2.7 基本常用类-自动抽牌机](https://github.com/whisperrrr/TW-Java/tree/2-7basicCommonClass)
