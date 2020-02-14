@@ -1,6 +1,6 @@
-public class F5InChrome extends F5 {
+public class Chrome extends SoftWare{
     @Override
-    public void pressDown() {
+    public void pressF5() {
         System.out.println("reloading website...");
     }
 }
