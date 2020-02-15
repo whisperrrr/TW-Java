@@ -1,17 +1,23 @@
-# TW-Java
-java practice in TW
+## 家庭作业：
 
-#### 第二章：面向对象基础（2020/02/7-2020/02/16）
-[2.3 多态编程题](https://github.com/whisperrrr/TW-Java/tree/2-3JavaMulti)：windows上的软件都要求能够响应F5按键
+1. 编写以下要求的类，按照要求完成继承关系。
+  * 动物类: 有年龄、体重属性,有吃东西和睡觉方法。
+  * 鸟类: 继承动物类，同时有飞行速度属性和飞行方法。
+  * 老鹰类: 继承鸟类，同时具有捕食对象属性和捕食方法。
 
-[2.4.3 marsRover](https://github.com/whisperrrr/TW-Java/tree/2-4-3marsRover)：小车转向问题。有多态方法（com文件夹）和枚举方法（comnew文件夹）
+2. 为动物类、鸟类、老鹰类三个类都添加对应的无参构造方法和全参构造方法
 
-[2.5.3 修饰符编程题](https://github.com/whisperrrr/TW-Java/tree/2-5-3Modifier)：老师给每一个学生的成绩加五分，打印出老师和其名下学生的信息
-
-[2.6.3 枚举编程题](https://github.com/whisperrrr/TW-Java/tree/2-6-3Enum)：找出所有的女学生，并打印其信息
-
-[2.7 基本常用类-自动抽牌机](https://github.com/whisperrrr/TW-Java/tree/2-7basicCommonClass)：自动抽牌机
-
-[2.8 进阶常用类](https://github.com/whisperrrr/TW-Java/tree/2-8advanceBasicClass)：学生与老师的故事进阶版
+3. 运用之前写的类在Application用代码描述一下场景：
+一只4岁的老鹰，体重5Kg，这只老鹰生活在兔子窝所以它只捕食兔子。某天它先翱翔天空，在饥肠辘辘之际捕食了一只兔子，然后饱餐一顿，心满意足之后就睡觉了。
 
 
+**使用简介**  
+1. 如何导入gradle项目(现在不要求掌握什么是gradle)
+- https://www.youtube.com/watch?v=0s7YYjQEsfU
+- https://www.jetbrains.com/help/idea/gradle.html
+
+2.运行所有测试  
+```
+./gradlew test
+```
+3. 运行单个测试可以直接点击对应测试右边的绿色三角形
