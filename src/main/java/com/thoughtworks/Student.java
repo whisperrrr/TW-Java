@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Student {
+public class Student implements Comparable<Student>{
     private final String name;
     private final String num;
     private final String dateStr;
@@ -41,6 +41,9 @@ public class Student {
 
     // 是否是同一个人
     public boolean isSamePerson(Student stu) {
+        if (stu == null) {
+            return false;
+        }
         return stu.num.equals(this.num);
     }
     // 计算学龄
@@ -70,10 +73,14 @@ public class Student {
         return str.toString();
     }
 
-    private String parseDate() {
+    public String parseDate() {
         String datePattern = "yyyy年MM月dd日";
         SimpleDateFormat sdf = new SimpleDateFormat(datePattern);
 
         return sdf.format(date);
+    }
+    @Override
+    public int compareTo(Student o) {
+        return Integer.parseInt(this.num) - Integer.parseInt(o.num);
     }
 }
