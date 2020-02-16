@@ -24,4 +24,5 @@ java practice in TW
 
 [2.8 进阶常用类](https://github.com/whisperrrr/TW-Java/tree/2-8advanceBasicClass)：学生与老师的故事进阶版
 
+[2.9 黄焖鸡面向对象版](https://github.com/whisperrrr/TW-Java/tree/2-9huangMenJi): 熟悉的味道，不同的配方
 
