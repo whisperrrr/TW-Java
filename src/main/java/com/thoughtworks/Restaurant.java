@@ -2,7 +2,9 @@ package com.thoughtworks;
 
 public class Restaurant {
 
-  public String bestCharge(String selectedItems) {
-    return null;
+  public static String bestCharge(String selectedItems) {
+    Order order = new Order(selectedItems);
+    return String.valueOf(order.renderOrder());
   }
+
 }
