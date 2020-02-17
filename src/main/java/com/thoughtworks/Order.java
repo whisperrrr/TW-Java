@@ -65,7 +65,7 @@ public class Order {
         billDetailStr.append("-----------------------------------\n");
         return billDetailStr;
     }
-
+    //选择优惠方式，并返回相应class
     public Discount chooseDiscount() {
         Discount halfDiscount = new HalfDiscount();
         Discount overDiscount = new OverDiscount();
