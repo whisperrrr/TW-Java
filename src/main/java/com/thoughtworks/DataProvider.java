@@ -19,7 +19,7 @@ public class DataProvider {
     return Arrays.asList("ITEM0001", "ITEM0022");
   }
   //转成哈希表的格式，通过id查找
-  public static Map getHashDishes() {
+  public static Map<String, Dish> getHashDishes() {
     Map<String, Dish> hashDishes = new HashMap<>();
     List<Dish> dishes = getDishes();
     for (Dish dish: dishes) {

@@ -7,9 +7,19 @@ import static com.thoughtworks.DataProvider.getHashDishes;
 
 public class Order {
     private String orderStr;
+    private ArrayList<Dish> orderList;
 
     public Order(String orderStr) {
         this.orderStr = orderStr;
+        this.orderList = parseOrder();
+    }
+
+    public String getOrderStr() {
+        return orderStr;
+    }
+
+    public ArrayList<Dish> getOrderList() {
+        return orderList;
     }
 
     /*
@@ -39,7 +49,6 @@ public class Order {
     * 输出订单
     * */
     public StringBuilder renderOrder() {
-        ArrayList<Dish> orderList = parseOrder();
         StringBuilder billStr = new StringBuilder();
         billStr.append("============= 订餐明细 =============\n");
         billStr.append(getbillDetailStr());
@@ -48,7 +57,6 @@ public class Order {
     }
 
     public StringBuilder getbillDetailStr() {
-        ArrayList<Dish> orderList = parseOrder();
         StringBuilder billDetailStr = new StringBuilder();
         for (Dish dish:orderList) {
             billDetailStr.append(dish.getName()).append(" x ").append(dish.getNum());
@@ -59,7 +67,6 @@ public class Order {
     }
 
     public Discount chooseDiscount() {
-        ArrayList<Dish> orderList = parseOrder();
         Discount halfDiscount = new HalfDiscount();
         Discount overDiscount = new OverDiscount();
         Discount noDiscount = new NoDiscount();
