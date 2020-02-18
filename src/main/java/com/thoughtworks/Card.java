@@ -24,32 +24,16 @@ public class Card {
         return cardValue;
     }
 
-    public void setCardValue(CardValue cardValue) {
-        this.cardValue = cardValue;
-    }
-
     public CardName getCardName() {
         return cardName;
     }
 
-    public void setCardName(CardName cardName) {
-        this.cardName = cardName;
-    }
-
-    public static ArrayList<Card> getCards() {
+    public  ArrayList<Card> getCards() {
         return cards;
-    }
-
-    public static void setCards(ArrayList<Card> cards) {
-        Card.cards = cards;
     }
 
     public static int getCardNum() {
         return cardNum;
-    }
-
-    public static void setCardNum(int cardNum) {
-        Card.cardNum = cardNum;
     }
 
     // 初始化一副牌
@@ -63,8 +47,9 @@ public class Card {
     }
 
     // 显示一张牌
-    public static String showCard(Card card) {
-        return card.getCardName().name() + card.getCardValue().getStr();
+    @Override
+    public String toString() {
+        return this.getCardName().getChineseStr() + this.getCardValue().getStr();
     }
 
 }
