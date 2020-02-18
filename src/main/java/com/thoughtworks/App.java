@@ -2,6 +2,8 @@ package com.thoughtworks;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 public class App {
 
@@ -10,8 +12,10 @@ public class App {
     Student stu2 = new Student("李四", "002", "2019.02.10");
     Student stu3 = new Student("王五", "001", "2019.02.09");
 
-    Student[] stuList = new Student[]{stu1, stu2, stu3};
-    Teacher teacher = new Teacher("张龙", new ArrayList<>(Arrays.asList(stuList)));
+    ArrayList<Student> stuList = new ArrayList<>();
+    Collections.addAll(stuList, stu1, stu2, stu3);
+
+    Teacher teacher = new Teacher("张龙", stuList);
 
     System.out.println(teacher);
     teacher.printRepeatStu();

@@ -2,7 +2,9 @@ package com.thoughtworks;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class Student implements Comparable<Student>{
     private final String name;
@@ -39,23 +41,23 @@ public class Student implements Comparable<Student>{
         return date;
     }
 
-    // 是否是同一个人
-    public boolean isSamePerson(Student stu) {
-        if (stu == null) {
-            return false;
-        }
-        return stu.num.equals(this.num);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Student)) return false;
+        Student student = (Student) o;
+        return Objects.equals(num, student.num);
     }
+
     // 计算学龄
     public int getDateInSchool() {
         String[] dateList = dateStr.split("\\.");
         String year = dateList[0];
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-        Date date = new Date();
-        String yearNow = sdf.format(date);
+        Calendar cal = Calendar.getInstance();
+        int yearNow = cal.get(Calendar.YEAR);//获取年份
 
-        int time = Integer.parseInt(yearNow) - Integer.parseInt(year);
+        int time = yearNow - Integer.parseInt(year);
 
         return time;
     }

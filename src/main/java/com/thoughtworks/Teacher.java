@@ -29,11 +29,15 @@ public class Teacher {
         stuList.add(null);
 
         for (int i = 1; i < stuListLen + 1; i++) {
-            if (stuList.get(i).isSamePerson(stuList.get(i - 1))
-              ||stuList.get(i).isSamePerson(stuList.get(i + 1))) {
+            if (stuList.get(i).equals(stuList.get(i - 1))
+              ||stuList.get(i).equals(stuList.get(i + 1))) {
                 stuRepeat.add(stuList.get(i));
             }
         }
+
+        stuList.remove(0);
+        stuList.remove(stuList.size() - 1);
+
         return stuRepeat;
     }
     //打印重复学生名单
