@@ -1,12 +1,12 @@
 public class Student {
 
     private String name;
-    private String gender;
+    private Gender gender;
 
     public Student() {
     }
 
-    public Student(String name, String gender) {
+    public Student(String name, Gender gender) {
         this.name = name;
         this.gender = gender;
     }
@@ -19,11 +19,11 @@ public class Student {
         this.name = name;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 }
