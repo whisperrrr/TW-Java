@@ -1,6 +1,11 @@
 # TW-Java
 java practice in TW
 
+#### 第一章：Java基础语法（2020/01/21-2020/02/06）
+[1.7 数组](https://github.com/whisperrrr/TW-Java/tree/1-7arrays)：数组小练习
+
+[1.8 黄焖鸡](https://github.com/whisperrrr/TW-Java/tree/1-8huangMenJi)：嗯，黄焖鸡
+
 #### 第二章：面向对象基础（2020/02/7-2020/02/16）
 [2.1 类和对象](https://github.com/whisperrrr/TW-Java/tree/2-1classAndObject)：老师和学生的故事
 
@@ -26,3 +31,7 @@ java practice in TW
 
 [2.9 黄焖鸡面向对象版](https://github.com/whisperrrr/TW-Java/tree/2-9huangMenJi): 熟悉的味道，不同的配方
 
+#### 第三周：Java高级特性(2020/02/18-2020/02/29)
+[3.1 Java集合概述之collection](https://github.com/whisperrrr/TW-Java/tree/3-1collection)：小练习
+
+[3.2 Java集合之map](https://github.com/whisperrrr/TW-Java/tree/3-2map)：老师与学生的故事，学生的类型为Map，按年龄分类
