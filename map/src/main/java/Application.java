@@ -10,7 +10,7 @@ public class Application {
     System.out.println(teacher.getStuInfo());
 
     Student stu4 = new Student("Ben", 19);
-    Student stu5 = new Student("Solider", 19);
+    Student stu5 = new Student("Solider", 20);
 
     teacher.addStudent(stu4);
     teacher.addStudent(stu5);

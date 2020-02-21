@@ -42,14 +42,16 @@ public class Teacher {
     public void addStudent(Student stu) {
         int age = stu.getAge();
 
-        if (studentMap.containsKey(age)) {
-            HashSet<Student> students = studentMap.get(age);
-            students.add(stu);
-        } else {
-            HashSet<Student> student = new HashSet<>();
-            student.add(stu);
-            studentMap.put(age, student);
-        }
+//        if (studentMap.containsKey(age)) {
+//            HashSet<Student> students = studentMap.get(age);
+//            students.add(stu);
+//        } else {
+//            HashSet<Student> student = new HashSet<>();
+//            student.add(stu);
+//            studentMap.put(age, student);
+//        }
+
+        studentMap.computeIfAbsent(age, k -> new HashSet<>()).add(stu);
 
     }
 
