@@ -37,7 +37,7 @@ public class Practice2 {
     public static List<Integer> getNumbers() {
         List<Integer> list = new ArrayList<>();
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i <= 100; i++) {
             list.add(i);
         }
 
