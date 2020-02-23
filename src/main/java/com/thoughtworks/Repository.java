@@ -1,6 +1,5 @@
 package com.thoughtworks;
 
-import java.util.Collection;
 import java.util.Map;
 
 public interface Repository<E> {
