@@ -23,26 +23,29 @@ public class FileUtil {
             delete(to);
         }
         File[] listFiles = from.listFiles();
-        for (File file:listFiles) {
+        String separator = File.separator;
+        for (File file : listFiles) {
             if (file.isFile()) {
-                copyFile(new File(from + "\\" + file.getName()),new File(to + "\\" + file.getName()));
+                copyFile(new File(from + separator + file.getName()), new File(to + separator + file.getName()));
             } else {
-                copyDirectory(new File(from + "\\" + file.getName()),new File(to + "\\" + file.getName()));
+                copyDirectory(new File(from + separator + file.getName()), new File(to + separator + file.getName()));
             }
         }
     }
+
     //清空文件夹。保证to文件夹在复制之前为空
     private static void delete(File to) {
         if (to.isFile()) {
             to.delete();
         } else {
-            for (File file:to.listFiles()) {
+            for (File file : to.listFiles()) {
                 delete(file);
             }
         }
     }
+
     //复制文件
-    public static void copyFile(File fromFile, File toFile){
+    public static void copyFile(File fromFile, File toFile) {
         BufferedInputStream inputStream = null;
         BufferedOutputStream outputStream = null;
         try {
@@ -50,12 +53,23 @@ public class FileUtil {
             outputStream = new BufferedOutputStream(new FileOutputStream(toFile));
             byte[] buffer = new byte[1024];
             int n = 0;
-            while ((n = inputStream.read(buffer))!= -1) {
-                outputStream.write(buffer,0, n);
+            while ((n = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, n);
             }
             outputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
