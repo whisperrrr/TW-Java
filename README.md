@@ -35,3 +35,14 @@ java practice in TW
 [3.1 Java集合概述之collection](https://github.com/whisperrrr/TW-Java/tree/3-1collection)：小练习
 
 [3.2 Java集合之map](https://github.com/whisperrrr/TW-Java/tree/3-2map)：老师与学生的故事，学生的类型为Map，按年龄分类
+
+[3.3 泛型](https://github.com/whisperrrr/TW-Java/tree/3-3generic)：实体仓库
+
+[3.4 IO](https://github.com/whisperrrr/TW-Java/tree/3-4IO)：从from中
+复制文件到to文件夹
+
+[3.5 异常](https://github.com/whisperrrr/TW-Java/tree/3-5exception)：自定义异常，理解异常
+
+[3.6 注解](https://github.com/whisperrrr/TW-Java/tree/3-6annotation)：为变量和类设置注解
+
+[3.7 高级特性大作业](https://github.com/whisperrrr/TW-Java/tree/3-7guessNumber)：猜数字
