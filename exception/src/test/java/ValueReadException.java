@@ -6,12 +6,12 @@ public class ValueReadException extends RuntimeException {
 
     //TODO: change the code to pass the test
 
-    throw new NotImplementedException();
+    super(message);
   }
 
   public ValueReadException(String message, Throwable cause) {
     //TODO: change the code to pass the test
 
-    throw new NotImplementedException();
+    super(message, cause);
   }
 }
