@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 
 public class FileUtil {
 
@@ -25,7 +26,7 @@ public class FileUtil {
         File[] listFiles = from.listFiles();
         String separator = File.separator;
 
-        for (File file : listFiles) {
+        for (File file : Objects.requireNonNull(listFiles)) {
             File fileTo = new File(to + separator + file.getName());
             if (file.isFile()) {
                 copyFile(file, fileTo);
@@ -51,7 +52,7 @@ public class FileUtil {
         try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(fromFile));
              BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(toFile))) {
             byte[] buffer = new byte[1024];
-            int n = 0;
+            int n;
             while ((n = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, n);
             }
