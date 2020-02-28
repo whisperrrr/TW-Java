@@ -24,11 +24,13 @@ public class FileUtil {
         }
         File[] listFiles = from.listFiles();
         String separator = File.separator;
+
         for (File file : listFiles) {
+            File fileTo = new File(to + separator + file.getName());
             if (file.isFile()) {
-                copyFile(new File(from + separator + file.getName()), new File(to + separator + file.getName()));
+                copyFile(file, fileTo);
             } else {
-                copyDirectory(new File(from + separator + file.getName()), new File(to + separator + file.getName()));
+                copyDirectory(file, fileTo);
             }
         }
     }
@@ -46,11 +48,8 @@ public class FileUtil {
 
     //复制文件
     public static void copyFile(File fromFile, File toFile) {
-        BufferedInputStream inputStream = null;
-        BufferedOutputStream outputStream = null;
-        try {
-            inputStream = new BufferedInputStream(new FileInputStream(fromFile));
-            outputStream = new BufferedOutputStream(new FileOutputStream(toFile));
+        try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(fromFile));
+             BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(toFile))) {
             byte[] buffer = new byte[1024];
             int n = 0;
             while ((n = inputStream.read(buffer)) != -1) {
@@ -59,19 +58,9 @@ public class FileUtil {
             outputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                outputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 }
+
 
 
