@@ -1,8 +1,5 @@
 package com.thoughtworks;
 
-
-
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -16,11 +13,12 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-public class Machine {
-    private final String answer;
+public class Machine implements Answer {
+    private final String answerStr;
     private final int digit;
     private final int maxGuess;
     private Map<String, String> guessMap = new LinkedHashMap<>();
+    private StringBuilder guessStrHistory = new StringBuilder();
 
     public Machine(int maxGuess, int digit) {
         String answer;
@@ -29,33 +27,56 @@ public class Machine {
         } catch (IOException e) {
             answer = getRandomAnswer();
         }
-        this.answer = answer;
+        this.answerStr = answer;
         this.maxGuess = maxGuess;
         this.digit = digit;
+    }
+
+    public int getDigit() {
+        return digit;
     }
 
     public int getMaxGuess() {
         return maxGuess;
     }
 
+    public String getAnswerStr() {
+        return answerStr;
+    }
+
+    public void setGuessStrHistory(StringBuilder guessStrHistory) {
+        this.guessStrHistory = guessStrHistory;
+    }
+
     public Map<String, String> getGuessMap() {
         return guessMap;
     }
 
+    public StringBuilder getGuessStrHistory() {
+        return guessStrHistory;
+    }
+
     // 判断是不是正确答案
-    public boolean isRightAnswer(String guessStr) {
-        String str = getAnswer(guessStr);
-        int rightNum = Character.getNumericValue(str.charAt(0));
+    @Override
+    public boolean isRightAnswer(String guessAnswer) {
+        int rightNum = Character.getNumericValue(guessAnswer.charAt(0));
         return rightNum == digit;
     }
 
-    // 返回XAxB格式的结果，并更新guessMap
+    // 返回XAxB格式的结果，并更新guessMap,guessStrHistory
+    @Override
     public String getAnswer(String guessStr) {
         int valueOfA = getAValue(guessStr);
         int valueOfB = getBValue(guessStr);
 
         String answer = String.format("%dA%dB", valueOfA, valueOfB);
         guessMap.put(guessStr, answer);
+
+
+        guessStrHistory.append(guessStr)
+                .append(" ")
+                .append(answer)
+                .append("\n");
 
         return answer;
     }
@@ -65,7 +86,7 @@ public class Machine {
         int numOfA = 0;
         for (int i = 0; i < digit; i++) {
             char temp = guessStr.charAt(i);
-            if (answer.indexOf(temp) == i) {
+            if (answerStr.indexOf(temp) == i) {
                 numOfA++;
             }
         }
@@ -77,7 +98,7 @@ public class Machine {
         int numOfB = 0;
         for (int i = 0; i < digit; i++) {
             char temp = guessStr.charAt(i);
-            int index = answer.indexOf(temp);
+            int index = answerStr.indexOf(temp);
             if (index > -1 && index != i) {
                 numOfB++;
             }
@@ -86,9 +107,10 @@ public class Machine {
     }
 
     // 从answer.txt里获取答案，如果没有，则随机生成
-    public static String getRightAnswer() throws IOException{
+    @Override
+    public String getRightAnswer() throws IOException {
         String path = "src/main/resources/answer.txt";
-        try(FileInputStream file = new FileInputStream(path)) {
+        try (FileInputStream file = new FileInputStream(path)) {
             InputStreamReader reader = new InputStreamReader(file);
             BufferedReader bufferedReader = new BufferedReader(reader);
             String strTmp = bufferedReader.readLine();
@@ -100,10 +122,10 @@ public class Machine {
     }
 
     private String getRandomAnswer() {
-//        // 考虑输入位数多了的情况
-//        if (digit > 9) {
-//
-//        }
+        // 考虑输入位数多了的情况会进如死循环的情况
+        if (digit > 9) {
+            throw new DigitOverflowException("too much digit, digit must below 9");
+        }
         Set<String> set = new HashSet<>();
         Random random = new Random();
         while (set.size() < digit) {
@@ -111,9 +133,10 @@ public class Machine {
             set.add(String.valueOf(temp));
         }
         List<String> answerList = new ArrayList<>(set);
-        return String.join("",answerList);
+        return String.join("", answerList);
     }
-    // 检测正确的格子格式
+
+    // 检测是否是正确的格子格式
     public static boolean isRightFormat(String str) {
         String[] strList = str.split("");
         int length = strList.length;

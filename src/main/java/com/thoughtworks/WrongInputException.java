@@ -1,6 +1,6 @@
 package com.thoughtworks;
 
-public class WrongInputException extends RuntimeException {
+public class WrongInputException extends Exception {
     public WrongInputException() {
     }
 
