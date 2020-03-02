@@ -92,6 +92,18 @@ class FileUtilTest {
         assertDirsEqual(from, to);
     }
 
+    @Test
+    void should_copy_correctly_given_to_includes_empty_folder() throws IOException {
+        File from = FROM_PATH.toFile();
+        File to = TO_PATH.toFile();
+        commonCreate();
+        createFolder(Paths.get(TO_PATH.toString(), "music"));
+
+        FileUtil.copyDirectory(from, to);
+
+        assertDirsEqual(from, to);
+    }
+
     private void commonCreate() throws IOException {
         createFile(FROM_PATH, "1.txt", "123");
         Path workPath = Paths.get(FROM_PATH.toString(), "work");

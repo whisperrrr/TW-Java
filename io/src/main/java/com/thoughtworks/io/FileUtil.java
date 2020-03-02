@@ -17,7 +17,7 @@ public class FileUtil {
      * <p>
      * 例如把a文件夹(a文件夹下有1.txt和一个空文件夹c)复制到b文件夹，复制完成以后b文件夹下也有一个1.txt和空文件夹c
      */
-    public static void copyDirectory(File from, File to) throws IOException {
+    public static void copyDirectory(File from, File to){
         if (!to.exists()) {
             to.mkdirs();
         } else {
@@ -41,9 +41,16 @@ public class FileUtil {
         if (to.isFile()) {
             to.delete();
         } else {
-            for (File file : to.listFiles()) {
-                delete(file);
+            deleteDirectory(to);
+        }
+    }
+
+    private static void deleteDirectory(File to) {
+        for (File file:to.listFiles()) {
+            if (!file.isFile()) {
+                deleteDirectory(file);
             }
+            file.delete();
         }
     }
 
