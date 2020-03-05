@@ -1,15 +1,10 @@
 package com.thoughtworks;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class App {
 
@@ -51,66 +46,84 @@ public class App {
         System.out.println(getMinTransaction(transactions));
     }
 
+    // 1.找出2011年的所有交易并按交易额排序(从低到高)
     public static List<Transaction> get2011Transactions(List<Transaction> transactions) {
-        Stream<Transaction> stream = transactions.stream();
-        Stream<Transaction> transactionStream = stream.filter(trader -> trader.getYear() == 2011);
-        return transactionStream.sorted(Comparator.comparing(Transaction::getValue)).collect(Collectors.toList());
+        return transactions.stream()
+                .filter(trader -> trader.getYear() == 2011)
+                .sorted(Comparator.comparing(Transaction::getValue))
+                .collect(Collectors.toList());
 
     }
 
+    // 2.交易员都在哪些不同的􏱜城市工作过
     public static List<String> getTradersCity(List<Transaction> transactions) {
-        Stream<Transaction> stream = transactions.stream();
-        Stream<String> cityStream = stream.map(transaction -> transaction.getTrader().getCity());
-
-        return cityStream.distinct().collect(Collectors.toList());
+        return transactions.stream()
+                .map(transaction -> transaction.getTrader().getCity())
+                .distinct()
+                .collect(Collectors.toList());
     }
 
+    // 3.查找所有来自于剑桥的交易员，并按姓名排序
     public static List<Trader> getCambridgeTraders(List<Transaction> transactions) {
-        Stream<Transaction> stream = transactions.stream();
-        Stream<Transaction> transactionInCambridge = stream.filter(trader -> trader.getTrader().getCity().equals("Cambridge"));
-        Stream<Trader> traderInCambridge = transactionInCambridge.map(Transaction::getTrader).filter(distinctByKey(Trader::getName));
-        return traderInCambridge.sorted(Comparator.comparing(Trader::getName)).collect(Collectors.toList());
+        return transactions.stream()
+                .filter(trader -> trader.getTrader().getCity().equals("Cambridge"))
+                .map(Transaction::getTrader)
+                .distinct()     // 已在Trader类里面重写了equals和hashcode
+                .sorted(Comparator.comparing(Trader::getName))
+                .collect(Collectors.toList());
     }
 
+    // 4.返回所有交易员的姓名字符串，按字母顺序排序
     public static List<String> getTradersName(List<Transaction> transactions) {
-        Stream<Transaction> stream = transactions.stream();
-        Stream<String> nameStream = stream.map(transaction -> transaction.getTrader().getName()).sorted();
-
-        return nameStream.distinct().sorted().collect(Collectors.toList());
+        return transactions.stream()
+                .map(transaction -> transaction.getTrader().getName())
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
     }
 
+    // 5.有没有交易员是在米兰工作的
     public static boolean hasMilanTrader(List<Transaction> transactions) {
-        Stream<Transaction> stream = transactions.stream();
-        Stream<Transaction> transactionInMilan = stream.filter(transaction -> transaction.getTrader().getCity().equals("Milan"));
+        return transactions.stream()
+                .anyMatch(transaction -> transaction.getTrader().getCity().equals("Milan"));
 
-        return transactionInMilan.count() > 0;
+//        方法二
+//        Stream<Transaction> stream = transactions.stream();
+//        Stream<Transaction> transactionInMilan = stream.filter(transaction -> transaction.getTrader().getCity().equals("Milan"));
+
+//        return transactionInMilan.count() > 0;
     }
 
+    // 6.返回交易员是剑桥的所有交易的交易额
     public static List<Integer> getCambridgeTransactionsValue(List<Transaction> transactions) {
-        Stream<Transaction> stream = transactions.stream();
-        Stream<Transaction> transactionInCambridge = stream.filter(transaction -> transaction.getTrader().getCity().equals("Cambridge"));
-
-        return transactionInCambridge.map(Transaction::getValue).collect(Collectors.toList());
+        return transactions.stream()
+                .filter(transaction -> transaction.getTrader().getCity().equals("Cambridge"))
+                .map(Transaction::getValue)
+                .collect(Collectors.toList());
     }
 
+    // 7.所有交易中，最高的交易额是多少
     public static int getMaxTransactionValue(List<Transaction> transactions) {
-        Stream<Transaction> stream = transactions.stream();
-        return stream.map(Transaction::getValue).max(Integer::compareTo).get(); // 前面返回的是一个Option对象，要用get()方法获取
+        return transactions.stream()
+                .map(Transaction::getValue)
+                .max(Integer::compareTo)
+                .orElse(0); // 返回的是一个Option对象
     }
 
+    // 8.返回交易额最小的交易
     public static Transaction getMinTransaction(List<Transaction> transactions) {
-        Stream<Transaction> stream = transactions.stream();
-        return stream.min(new Comparator<Transaction>() {
-            @Override
-            public int compare(Transaction o1, Transaction o2) {
-                return o1.getValue() - o2.getValue();
-            }
-        }).get();
+        return transactions.stream()
+                .min(Comparator.comparingInt(Transaction::getValue))
+                .orElse(null);
+
+//        方法二
+//        Stream<Transaction> stream = transactions.stream();
+//        return stream.min(new Comparator<Transaction>() {
+//            @Override
+//            public int compare(Transaction o1, Transaction o2) {
+//                return o1.getValue() - o2.getValue();
+//            }
+//        }).get();
     }
 
-
-    static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
-        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
-        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
-    }
 }

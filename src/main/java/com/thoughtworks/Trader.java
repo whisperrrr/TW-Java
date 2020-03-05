@@ -1,5 +1,7 @@
 package com.thoughtworks;
 
+import java.util.Objects;
+
 public class Trader {
 
   private final String name;
@@ -20,5 +22,19 @@ public class Trader {
 
   public String toString() {
     return "Trader:" + this.name + " in " + this.city;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Trader)) return false;
+    Trader trader = (Trader) o;
+    return Objects.equals(name, trader.name) &&
+            Objects.equals(city, trader.city);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, city);
   }
 }
