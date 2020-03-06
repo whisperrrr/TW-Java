@@ -1,48 +1,43 @@
 package com.thoughtworks;
 
-import java.util.Scanner;
+import com.thoughtworks.answer.Answer;
+import com.thoughtworks.exception.WrongInputException;
 
-import static com.thoughtworks.Machine.isRightFormat;
+import java.util.Scanner;
 
 public class App {
 
     public static void main(String[] args) {
-        Machine machine = new Machine(6,4);
-        System.out.println(String.format("game begin...\nplease input a Please enter a %d-digit number ",machine.getDigit()));
-
-        Scanner scanner = new Scanner(System.in);
         int inputNum = 0;
         boolean flag = false;
-        while (inputNum < machine.getMaxGuess()) {
 
-            int guessNum = scanner.nextInt();
-            String guessStr = String.valueOf(guessNum);
+        Game game = new Game(4, 6);
+        Scanner scanner = new Scanner(System.in);
 
-            if (isRightFormat(guessStr)) {
-                String answer = machine.getAnswer(guessStr);
-                System.out.println(machine.getGuessStrHistory());
-                if (machine.isRightAnswer(answer)) {
+        while (inputNum < game.getMaxChance()) {
+            String guess = scanner.nextLine();
+            Answer guessNum = new Answer(guess);
+            try {
+                game.getValidator().validationAnswer(guessNum);
+                String answer = game.getResult(guess);
+                System.out.println(game.getGuessStrHistory());
+                if (game.isRightAnswer(answer)) {
                     flag = true;
                     break;
                 }
                 inputNum++;
-            } else {
-                try {
-                    throw new WrongInputException();
-                } catch (WrongInputException e) {
-                    StringBuilder guessStrHistory = machine.getGuessStrHistory();
-                    guessStrHistory.append(guessStr).append(" ").append("Wrong input\n");
-                    machine.setGuessStrHistory(guessStrHistory);
-                    System.out.println(guessStrHistory);
-                }
+            } catch (WrongInputException e) {
+                StringBuilder guessStrHistory = game.getGuessStrHistory();
+                guessStrHistory.append(guess).append(" ").append("Wrong input\n");
+                game.setGuessStrHistory(guessStrHistory);
+                System.out.println(guessStrHistory);
             }
-
         }
 
         if (flag) {
             System.out.println("Congratulations, you win!");
         } else {
-            System.out.println(String.format("Unfortunately, you have no chance, the answer is %s",machine.getAnswerStr()));
+            System.out.println(String.format("Unfortunately, you have no chance, the answer is %s", game.getAnswer()));
         }
 
     }
