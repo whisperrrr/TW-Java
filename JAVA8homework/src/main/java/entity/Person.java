@@ -58,4 +58,16 @@ public class Person {
     public int hashCode() {
         return Objects.hash(masterNumber, address, telephones, emails);
     }
+
+    // 新添加
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "masterNumber='" + masterNumber + '\'' +
+                ", address=" + address +
+                ", telephones=" + telephones +
+                ", emails=" + emails +
+                '}';
+    }
 }

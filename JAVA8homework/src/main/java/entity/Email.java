@@ -37,4 +37,13 @@ public class Email {
     public int hashCode() {
         return Objects.hash(masterNumber, emailAddress);
     }
+
+    // 新添加
+
+    @Override
+    public String toString() {
+        return "Email{" +
+                "emailAddress='" + emailAddress + '\'' +
+                '}';
+    }
 }
