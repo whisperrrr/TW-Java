@@ -9,9 +9,12 @@ public class App {
 
     public static void main(String[] args) {
         int inputNum = 0;
-        boolean flag = false;
 
         Game game = new Game(4, 6);
+//        Game game = new Game(2, 3);
+//        Game game = new Game(10, 3);
+        printWelcome(game);
+
         Scanner scanner = new Scanner(System.in);
 
         while (inputNum < game.getMaxChance()) {
@@ -22,7 +25,7 @@ public class App {
                 String answer = game.getResult(guess);
                 System.out.println(game.getGuessStrHistory());
                 if (game.isRightAnswer(answer)) {
-                    flag = true;
+                    game.setWin(true);
                     break;
                 }
                 inputNum++;
@@ -33,12 +36,22 @@ public class App {
                 System.out.println(guessStrHistory);
             }
         }
+        printEndGame(game);
+    }
 
-        if (flag) {
+    public static void printWelcome(Game game) {
+        StringBuilder welcomeWord = new StringBuilder();
+        welcomeWord.append(String.format("Start guessing a %d digit number\n", game.getDigit()))
+                .append(String.format("you only have %d chances", game.getMaxChance()));
+        System.out.println(welcomeWord);
+    }
+
+    public static void printEndGame(Game game) {
+        if (game.isWin()) {
             System.out.println("Congratulations, you win!");
         } else {
             System.out.println(String.format("Unfortunately, you have no chance, the answer is %s", game.getAnswer()));
         }
-
     }
+
 }

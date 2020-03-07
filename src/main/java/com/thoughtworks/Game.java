@@ -9,17 +9,20 @@ import java.util.Map;
 
 public class Game {
     private final int digit;  // 如何限制位数的大小   TODO
+    private final static int MAX_DIGIT = 9;
     private final int maxChance;
     private final Answer answer;
     private final Validator validator;
+    private boolean win = false;
     private Map<String, String> guessMap = new LinkedHashMap<>();
     private StringBuilder guessStrHistory = new StringBuilder();
 
     public Game(int digit, int maxChance) {
-        this.digit = digit;
+        int safeDigit = Math.min(digit, MAX_DIGIT);
+        this.digit = safeDigit;
         this.maxChance = maxChance;
-        this.validator = new Validator(digit);
-        this.answer = new fileAnswerGenerator().generateAnswer(digit);
+        this.validator = new Validator(safeDigit);
+        this.answer = new fileAnswerGenerator().generateAnswer(safeDigit);
     }
 
     public int getDigit() {
@@ -44,6 +47,14 @@ public class Game {
 
     public void setGuessStrHistory(StringBuilder guessStrHistory) {
         this.guessStrHistory = guessStrHistory;
+    }
+
+    public boolean isWin() {
+        return win;
+    }
+
+    public void setWin(boolean win) {
+        this.win = win;
     }
 
     // 判断是不是正确答案
