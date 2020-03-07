@@ -16,6 +16,14 @@ public class Address {
     public String getMasterNumber() {
         return masterNumber;
     }
+    // 添加的
+    public String getCity() {
+        return city;
+    }
+    // 添加的
+    public String getStreet() {
+        return street;
+    }
 
     public Address(String masterNumber, String country, String city, String street) {
         this.masterNumber = masterNumber;
@@ -29,8 +37,6 @@ public class Address {
     }
 
     // 新添加
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
