@@ -12,4 +12,5 @@ public class MasterNumber {
     public String getNumber() {
         return number;
     }
+
 }
