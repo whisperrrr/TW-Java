@@ -37,10 +37,15 @@ public class PersonSet {
         Map<String, List<Address>> addressMap = addresses.stream().collect(Collectors.groupingBy(Address::getMasterNumber));
         Map<String, List<Email>> emailsMap = emails.stream().collect(Collectors.groupingBy(Email::getMasterNumber));
         Map<String, List<Telephone>> telephonesMap = telephones.stream().collect(Collectors.groupingBy(Telephone::getMasterNumber));
+
         List<Address> nullAddress = new ArrayList<>();
         nullAddress.add(null);
+
         return masterNumbers.stream().map(MasterNumber::getNumber)
-                .map(masterNumber -> new Person(masterNumber, telephonesMap.getOrDefault(masterNumber, new ArrayList<>()), addressMap.getOrDefault(masterNumber, nullAddress).get(0), emailsMap.getOrDefault(masterNumber, new ArrayList<>())));
+                .map(masterNumber -> new Person(masterNumber,
+                        telephonesMap.getOrDefault(masterNumber, new ArrayList<>()),
+                        addressMap.getOrDefault(masterNumber, nullAddress).get(0),
+                        emailsMap.getOrDefault(masterNumber, new ArrayList<>())));
     }
 
     public List<Address> getAddresses() {

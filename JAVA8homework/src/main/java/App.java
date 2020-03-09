@@ -18,7 +18,7 @@ public class App {
         Stream<Person> personStream2 = personService.getPersonByMasterNumbers(Arrays.asList(new MasterNumber("3")));
         printPerson(personStream2);
     }
-    // 看看能不能用流的方式简化 TODO
+
     public static void printPerson(Stream<Person> personStream) {
         List<Person> collect = personStream.collect(Collectors.toList());
         if (collect.size() == 0) {
