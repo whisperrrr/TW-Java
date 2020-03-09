@@ -1,4 +1,4 @@
 @FunctionalInterface
 public interface ChangeStr {
-    public void print(String str);
+    void print(String str);
 }
