@@ -1,33 +1,41 @@
 package com.thoughtworks;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-public class MemoryRepository implements Repository<Student> {
-    Map<String, Student> students = new HashMap<>();
+public class MemoryRepository<E> implements Repository<E> {
+    Map<String, E> memoryRepository = new HashMap<>();
 
     @Override
-    public void save(String id, Student entity) {
-        students.put(id, entity);
+    public void save(String id, E entity) {
+        memoryRepository.put(id, entity);
     }
 
     @Override
-    public Student get(String id) {
-        return students.get(id);
+    public E get(String id) {
+        return memoryRepository.get(id);
     }
 
     @Override
-    public Student delete(String id) {
-        return students.remove(id);
+    public E delete(String id) {
+        return memoryRepository.remove(id);
     }
 
     @Override
-    public Student update(String id, Student entity) {
-        return students.put(id, entity);
+    public E update(String id, E entity) {
+        return memoryRepository.replace(id, entity);
     }
 
     @Override
-    public Map<String, Student> list() {
-        return students;
+    public List<E> list() {
+        Set<String> keys = memoryRepository.keySet();
+        List<E> memoryRepositoryList = new ArrayList<>();
+        for (String key : keys) {
+            memoryRepositoryList.add(memoryRepository.get(key));
+        }
+        return memoryRepositoryList;
     }
 }

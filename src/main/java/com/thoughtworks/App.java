@@ -1,21 +1,24 @@
 package com.thoughtworks;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class App {
 
     public static void main(String[] args) {
-        Student stu1 = new Student("3", "张三");
-        Student stu2 = new Student("4", "李四");
-        Student stu3 = new Student("5", "王五");
-        Student stu4 = new Student("6", "赵六");
-        Student stu5 = new Student("7", "钱七");
 
-        MemoryRepository memoryRepository = new MemoryRepository();
+        List<Student> students = Arrays.asList(
+                new Student("3", "张三"),
+                new Student("4", "李四"),
+                new Student("5", "王五"),
+                new Student("6", "赵六"),
+                new Student("7", "钱七"));
 
-        memoryRepository.save(stu1.getId(), stu1);
-        memoryRepository.save(stu2.getId(), stu2);
-        memoryRepository.save(stu3.getId(), stu3);
-        memoryRepository.save(stu4.getId(), stu4);
-        memoryRepository.save(stu5.getId(), stu5);
+        MemoryRepository<Student> memoryRepository = new MemoryRepository<>();
+
+        for (Student student : students) {
+            memoryRepository.save(student.getId(),student);
+        }
 
         System.out.println(memoryRepository.get("3"));
         System.out.println("==================");

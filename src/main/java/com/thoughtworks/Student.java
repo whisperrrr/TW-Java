@@ -13,15 +13,8 @@ public class Student {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
     @Override
     public String toString() {
-        return "Student{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+        return String.format("(%s,%s)", id, name);
     }
 }
