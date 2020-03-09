@@ -46,3 +46,10 @@ java practice in TW
 [3.6 注解](https://github.com/whisperrrr/TW-Java/tree/3-6annotation)：为变量和类设置注解
 
 [3.7 高级特性大作业](https://github.com/whisperrrr/TW-Java/tree/3-7guessNumber)：猜数字
+
+#### 第四周：Java8新特性(2020/03/01-2020/03/10)
+[4.1 Lambda表达式](https://github.com/whisperrrr/TW-Java/tree/4-1lambda)：用自定义函数接口，Consumer，Function完成练习
+
+[4.2 Stream](https://github.com/whisperrrr/TW-Java/tree/4-2stream)：用Stream操作交易和交易信息
+
+[4.4 java8大作业](https://github.com/whisperrrr/TW-Java/tree/4-4java8)：数据库模拟
