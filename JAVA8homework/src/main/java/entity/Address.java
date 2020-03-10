@@ -16,10 +16,12 @@ public class Address {
     public String getMasterNumber() {
         return masterNumber;
     }
+
     // 添加的
     public String getCity() {
         return city;
     }
+
     // 添加的
     public String getStreet() {
         return street;

@@ -34,17 +34,19 @@ public class PersonSet {
         // TODO: group the data to Stream<Person>
         // Can use Collectors.groupingBy method
         // Can add helper method
-        Map<String, List<Address>> addressMap = addresses.stream().collect(Collectors.groupingBy(Address::getMasterNumber));
-        Map<String, List<Email>> emailsMap = emails.stream().collect(Collectors.groupingBy(Email::getMasterNumber));
-        Map<String, List<Telephone>> telephonesMap = telephones.stream().collect(Collectors.groupingBy(Telephone::getMasterNumber));
+//        // Plan A:
+//        Map<String, List<Address>> addressMap = addresses.stream().collect(Collectors.groupingBy(Address::getMasterNumber));
+//        List<Address> nullAddress = new ArrayList<>();
+//        nullAddress.add(null);
 
-        List<Address> nullAddress = new ArrayList<>();
-        nullAddress.add(null);
+        Map<String, List<Email>> emailsMap = emails.stream().collect(Collectors.groupingBy(Email::getMasterNumber));
+        Map<String, Address> addressMap = addresses.stream().collect(Collectors.toMap(ele -> ele.getMasterNumber(), ele -> ele));
+        Map<String, List<Telephone>> telephonesMap = telephones.stream().collect(Collectors.groupingBy(Telephone::getMasterNumber));
 
         return masterNumbers.stream().map(MasterNumber::getNumber)
                 .map(masterNumber -> new Person(masterNumber,
                         telephonesMap.getOrDefault(masterNumber, new ArrayList<>()),
-                        addressMap.getOrDefault(masterNumber, nullAddress).get(0),
+                        addressMap.getOrDefault(masterNumber, null),
                         emailsMap.getOrDefault(masterNumber, new ArrayList<>())));
     }
 
