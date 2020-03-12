@@ -22,21 +22,32 @@ public class PersonService {
     public Stream<Person> getPersonByMasterNumbers(List<MasterNumber> numbers) {
         //TODO: Add the code to return people by numbers
         // Use groupToPeople() method
-        List<List<String>> validedKey = people.keySet().stream()
-                .filter(ele -> isEqual(ele, numbers))
+        List<String> personList = numbers.stream()
+                .map(MasterNumber::getNumber)
                 .collect(Collectors.toList());
 
-        if (validedKey.size() != 0) {
-            return people.get(validedKey.get(0)).get().groupToPeople();
+        if (people.containsKey(personList)) {
+            return people.get(personList).get().groupToPeople();
         }
         return Stream.empty();
-    }
 
-    // 新添加，判断key值和需求list是否相等
-    // 转成stream流进行排序然后转成字符串进行比较
-    public boolean isEqual(List<String> keys, List<MasterNumber> numbers) {
-        return numbers.stream()
-                .map(MasterNumber::getNumber).sorted().collect(Collectors.joining())
-                .equals(keys.stream().sorted().collect(Collectors.joining()));
+//        原方法：用List<MasterNumber> 直接做(稍麻烦)
+//        List<List<String>> validedKey = people.keySet().stream()
+//                .filter(ele -> isEqual(ele, numbers))
+//                .collect(Collectors.toList());
+//
+//        if (validedKey.size() != 0) {
+//           return people.get(validedKey.get(0)).get().groupToPeople();
+//        }
+//        return Stream.empty();
     }
 }
+
+//    // 新添加，判断key值和需求list是否相等
+//    // 转成stream流进行排序然后转成字符串进行比较
+//    public boolean isEqual(List<String> keys, List<MasterNumber> numbers) {
+//        return numbers.stream()
+//                .map(MasterNumber::getNumber).sorted().collect(Collectors.joining())
+//                .equals(keys.stream().sorted().collect(Collectors.joining()));
+//    }
+//}
