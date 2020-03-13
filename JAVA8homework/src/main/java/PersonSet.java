@@ -40,7 +40,7 @@ public class PersonSet {
 //        nullAddress.add(null);
 
         Map<String, List<Email>> emailsMap = emails.stream().collect(Collectors.groupingBy(Email::getMasterNumber));
-        Map<String, Address> addressMap = addresses.stream().collect(Collectors.toMap(ele -> ele.getMasterNumber(), ele -> ele));
+        Map<String, Address> addressMap = addresses.stream().collect(Collectors.toMap(Address::getMasterNumber, ele -> ele));
         Map<String, List<Telephone>> telephonesMap = telephones.stream().collect(Collectors.groupingBy(Telephone::getMasterNumber));
 
         return masterNumbers.stream().map(MasterNumber::getNumber)

@@ -26,10 +26,10 @@ public class PersonService {
                 .map(MasterNumber::getNumber)
                 .collect(Collectors.toList());
 
-        if (people.containsKey(personList)) {
-            return people.get(personList).get().groupToPeople();
-        }
-        return Stream.empty();
+        return people.getOrDefault(personList,Optional.empty())
+                .map(PersonSet::groupToPeople)
+                .orElse(Stream.empty());
+
 
 //        原方法：用List<MasterNumber> 直接做(稍麻烦)
 //        List<List<String>> validedKey = people.keySet().stream()
