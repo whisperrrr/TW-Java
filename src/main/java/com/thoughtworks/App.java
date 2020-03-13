@@ -1,8 +1,10 @@
 package com.thoughtworks;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -66,7 +68,7 @@ public class App {
     // 3.查找所有来自于剑桥的交易员，并按姓名排序
     public static List<Trader> getCambridgeTraders(List<Transaction> transactions) {
         return transactions.stream()
-                .filter(trader -> trader.getTrader().getCity().equals("Cambridge"))
+                .filter(trader -> Objects.equals(trader.getTrader().getCity(), "Cambridge"))
                 .map(Transaction::getTrader)
                 .distinct()     // 已在Trader类里面重写了equals和hashcode
                 .sorted(Comparator.comparing(Trader::getName))
@@ -85,7 +87,7 @@ public class App {
     // 5.有没有交易员是在米兰工作的
     public static boolean hasMilanTrader(List<Transaction> transactions) {
         return transactions.stream()
-                .anyMatch(transaction -> transaction.getTrader().getCity().equals("Milan"));
+                .anyMatch(transaction -> Objects.equals(transaction.getTrader().getCity(), "Milan"));
 
 //        方法二
 //        Stream<Transaction> stream = transactions.stream();
@@ -97,7 +99,7 @@ public class App {
     // 6.返回交易员是剑桥的所有交易的交易额
     public static List<Integer> getCambridgeTransactionsValue(List<Transaction> transactions) {
         return transactions.stream()
-                .filter(transaction -> transaction.getTrader().getCity().equals("Cambridge"))
+                .filter(transaction -> Objects.equals(transaction.getTrader().getCity(), "Cambridge"))
                 .map(Transaction::getValue)
                 .collect(Collectors.toList());
     }
@@ -107,7 +109,7 @@ public class App {
         return transactions.stream()
                 .map(Transaction::getValue)
                 .max(Integer::compareTo)
-                .orElse(0); // 返回的是一个Option对象
+                .orElse(-1); // 返回的是一个Option对象
     }
 
     // 8.返回交易额最小的交易
